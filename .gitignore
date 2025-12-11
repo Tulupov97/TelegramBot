@@ -1,3 +1,4 @@
-.env
+.venv
 is_admin_data.py
 users_data.json
+bot_token.py

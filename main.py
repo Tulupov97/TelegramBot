@@ -1,14 +1,18 @@
-from Bot_token import BOT_TOKEN
+
 from aiogram.filters import BaseFilter
-from is_admin_data import admins_id_list
 from aiogram.types import Message
 from aiogram import Bot, Dispatcher
+import os
 
-BOT_TOKEN = BOT_TOKEN
+from is_admin_data import admins_id_list
+from bot_token import BOT_TOKEN
+
+
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
+# фильтр на админа
 class IsAdmin(BaseFilter):
     def __init__(self, admins_id_list : list[int]) -> None:
         self.admins_id_list = admins_id_list
