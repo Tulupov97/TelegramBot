@@ -12,7 +12,7 @@ from bot_token import BOT_TOKEN
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
-# фильтр на админа
+#фильтр на админа
 class IsAdmin(BaseFilter):
     def __init__(self, admins_id_list : list[int]) -> None:
         self.admins_id_list = admins_id_list
