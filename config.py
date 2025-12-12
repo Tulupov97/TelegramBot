@@ -1,9 +1,8 @@
 from pydantic import BaseModel
 from environs import Env
 
-Env.read_env(override=True)
-
 env = Env()
+Env.read_env(override=True)
 
 class TgBot(BaseModel):
     token : str = env("BOT_TOEKN")

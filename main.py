@@ -2,14 +2,11 @@
 from aiogram.filters import BaseFilter
 from aiogram.types import Message
 from aiogram import Bot, Dispatcher
-import os, dotenv, json
 import environs
+from config import TgBot
 
 
-env = environs.Env()
-env.read_env()
-
-bot = Bot(token=env('BOT_TOKEN'))
+bot = Bot(token=TgBot.token)
 dp = Dispatcher()
 
 #фильтр на админа
@@ -22,7 +19,7 @@ class IsAdmin(BaseFilter):
     
 
 # Этот хэндлер будет срабатывать, если апдейт от админа
-@dp.message(IsAdmin(env.int("ADMIN_ID")))
+@dp.message(IsAdmin(TgBot.admin_id))
 async def answer_if_admins_update(message: Message):
     await message.answer(text='Вы админ')
 
@@ -32,5 +29,3 @@ async def answer_if_admins_update(message: Message):
 async def answer_if_not_admins_update(message: Message):
     await message.answer(text='Вы не админ')
 
-print(os.getenv('BOT_TOKEN'))
-print(os.getenv('ADMIN_ID'))
