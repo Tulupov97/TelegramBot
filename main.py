@@ -2,30 +2,34 @@
 from aiogram.filters import BaseFilter
 from aiogram.types import Message
 from aiogram import Bot, Dispatcher
-import environs
-from config import TgBot
+from config import load_config
 
 
-bot = Bot(token=TgBot.token)
+config = load_config(".env")
+
+bot = Bot(token=config.bot.token)
 dp = Dispatcher()
+dp['admin_id'] = config.bot.admin_id
 
-#фильтр на админа
+# Фильтр на админа
 class IsAdmin(BaseFilter):
     def __init__(self, admin_id : int) -> None:
         self.admin_id = admin_id
 
     async def __call__(self, message: Message) -> bool:
-        return message.from_user.id is self.admin_id
+        return message.from_user.id == self.admin_id  # type: ignore
     
 
-# Этот хэндлер будет срабатывать, если апдейт от админа
-@dp.message(IsAdmin(TgBot.admin_id))
+# Хэндлер для админа
+@dp.message(IsAdmin(dp['admin_id'] ))
 async def answer_if_admins_update(message: Message):
     await message.answer(text='Вы админ')
 
 
-# Этот хэндлер будет срабатывать, если апдейт не от админа
+# Хэндлер для всех остальных
 @dp.message()
 async def answer_if_not_admins_update(message: Message):
     await message.answer(text='Вы не админ')
 
+if __name__ == "__main__":
+    dp.run_polling(bot)
