@@ -1,3 +1,5 @@
 .venv
 users_data.json
 .env
+logs
+**__pycache__/
