@@ -1,24 +1,26 @@
-from aiogram.types import Message
-from aiogram import Bot, Dispatcher
+from aiogram import Bot
 from config.config import load_config
 from log.logger_config import setup_logger
-from filters.is_admin import IsAdmin
-
+from create_dp import dp
+import asyncio
+from handlers import user
 
 config = load_config(".env")
-
 logger = setup_logger('main.py')
-
 bot = Bot(token=config.bot.token)
-dp = Dispatcher()
-dp['admins_id'] = config.bot.admins_id
 
-
-# Хэндлер для всех остальных
-@dp.message()
-async def answer_if_not_admins_update(message: Message):
-    await message.answer(text='Вы не админ')
-
+async def main():
+    try:
+        await bot.get_me()
+        dp.include_router(user.user_router)
+        logger.info("Бот запущен ✅")
+        await bot.delete_webhook(drop_pending_updates=True)
+        await dp.start_polling(bot)
+    except Exception as err:
+        logger.critical(f"{err}")
+    
 if __name__ == "__main__":
-    logger.info("Приложение запускается")
-    dp.run_polling(bot)
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        logger.info("🛑 Бот остановлен вручную")
