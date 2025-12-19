@@ -4,7 +4,7 @@ import json
 
 class TgBot(BaseModel):
     token : str
-    admins_id : list[int]
+    admins_id : list[str]
 
 class Config(BaseModel):
     bot : TgBot
