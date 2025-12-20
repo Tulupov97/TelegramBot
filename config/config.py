@@ -16,8 +16,4 @@ def load_config(path: str | None = None) -> Config:
     return Config(
     bot=TgBot(
         token=env.str("BOT_TOKEN"),
-        admins_id=env.list("ADMINS_ID", subcast=int)
-    )
-)
-
-
+        admins_id=env.list("ADMINS_ID", subcast=int)))
