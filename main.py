@@ -5,7 +5,7 @@ from create_dp import dp
 import asyncio
 from handlers import user
 
-config = load_config(".env")
+config = load_config()
 logger = setup_logger('main.py')
 bot = Bot(token=config.bot.token)
 
