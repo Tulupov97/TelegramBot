@@ -1,8 +1,9 @@
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 from aiogram.filters import CommandStart, Command
 from aiogram import Router, F
 from config.config import load_config
 from keyboards.keybords import keyboard, admins_keyboard
+from keyboards.inline_keyboards import base_keyboard
 from main import bot
 from log.logger_config import setup_logger
 
@@ -22,15 +23,18 @@ async def process_start_command(message: Message):
 
 @user_router.message(Command(commands="help"))
 async def help_command(message: Message):
-    await message.answer(text=f"/help\n/start")
+    await message.answer(text=f"None")
+
+@user_router.message(Command(commands="other"))
+async def other_command(message: Message):
+    await message.answer(text=f"Группу моей девушки😆", reply_markup=base_keyboard)
 
 
 # Этот хэндлер будет срабатывать на ...
-@user_router.message(F.text == 'Локации общих прогулок')
-async def our_location(message: Message):
-    await bot.send_location(
-        chat_id=message.chat.id,
+@user_router.callback_query(F.data == 'Локации совместных прогулок')
+async def our_location(callback: CallbackQuery):
+    await callback.bot.send_location( # type: ignore
+        chat_id=callback.message.chat.id, # type: ignore
         latitude=59.867876,
-        longitude=30.329685)
-
-
+        longitude=30.329685) 
+    await callback.answer()
