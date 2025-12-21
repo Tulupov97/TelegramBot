@@ -2,7 +2,6 @@ from aiogram.types import (
     KeyboardButton,
     ReplyKeyboardMarkup, KeyboardButtonRequestUser)
 from aiogram.utils.keyboard import ReplyKeyboardBuilder 
-from filters.is_admin import IsAdmin
 from config.config import load_config
 
 
