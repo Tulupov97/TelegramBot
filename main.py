@@ -4,16 +4,14 @@ from log.logger_config import setup_logger
 from create_dp import dp
 import asyncio
 
+
 config = load_config()
-logger = setup_logger('main.py')
+logger = setup_logger(__name__)
 bot = Bot(token=config.bot.token)
 
 async def main():
-    from handlers import user, admins
     try:
         await bot.get_me()
-        dp.include_router(user.user_router)
-        dp.include_router(admins.admins_router)
         logger.info("Бот запущен ✅")
         await bot.delete_webhook(drop_pending_updates=True)
         await dp.start_polling(bot)
