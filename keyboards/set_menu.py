@@ -1,6 +1,5 @@
 from aiogram import Bot
 from aiogram.types import BotCommand, BotCommandScopeDefault
-
 from lexicon.lexicon import LEXICON_COMMANDS_RU
 
 

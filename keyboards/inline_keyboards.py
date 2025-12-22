@@ -4,5 +4,5 @@ lena_group_btn = InlineKeyboardButton(text='Группа "Ленка в меде
 location_btn = InlineKeyboardButton(text='Локации совместных прогулок', callback_data='Локации совместных прогулок')
 
 
-base_keyboard = InlineKeyboardMarkup(inline_keyboard=[[location_btn]])
-inline_keyboard = InlineKeyboardMarkup(inline_keyboard=[[lena_group_btn]])
+test_keyboard = InlineKeyboardMarkup(inline_keyboard=[[lena_group_btn]])
+inline_keyboard = InlineKeyboardMarkup(inline_keyboard=[[location_btn]])
