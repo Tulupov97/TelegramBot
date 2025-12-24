@@ -1,5 +1,6 @@
 .venv
 users_data.json
 .env
+venv
 logs
 **__pycache__/
