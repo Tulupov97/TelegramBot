@@ -3,6 +3,8 @@ from aiogram.types import Message
 from aiogram import Router
 from keyboards.inline_keyboards import builder, inline_keyboard
 from config.config import load_config
+from log.logger_config import setup_logger
+
 
 command_router = Router()
 
@@ -21,4 +23,4 @@ async def help_command(message: Message):
 
 @command_router.message(Command(commands="test"))
 async def other_command(message: Message):
-    await message.answer(text=f"Группу моей девушки😆/n и пару тестов", reply_markup=builder.as_markup())
+    await message.answer(text=f"Группу моей девушки😆\n и пару тестов", reply_markup=builder.as_markup())

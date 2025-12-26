@@ -13,15 +13,18 @@ inline_keyboard = InlineKeyboardMarkup(inline_keyboard=[[location_btn]])
 builder = InlineKeyboardBuilder()
 
 builder.button(text= 'Группа "Ленка в меде', url='https://t.me/chernositovalenaa')
+
 builder.button(text= 'Питер', callback_data=CallbackDataFactory(
         country='Russia',
         region='Leningrad region',
         city='Saint-Petersburg'))
+
 builder.button(text="Москва",
     callback_data=CallbackDataFactory(
         country='Russia',
         region='Moscow oblast',
         city='Moscow'))
+
 builder.adjust(1)
 
 

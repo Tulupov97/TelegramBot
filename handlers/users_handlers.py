@@ -12,6 +12,7 @@ user_router = Router()
 # Этот хэндлер будет срабатывать на ...
 @user_router.callback_query(F.data == 'Локации совместных прогулок')
 async def our_location(callback: CallbackQuery):
+
     await callback.bot.send_location( # type: ignore
         chat_id=callback.message.chat.id, # type: ignore
         latitude=59.867876,
@@ -22,9 +23,7 @@ async def our_location(callback: CallbackQuery):
     text=f"📍 Открыть на Яндекс.Картах: {yandex_maps_url}",
     disable_web_page_preview=False  # чтобы превью отобразилось
     )
-
     await callback.answer()
-
 
 @user_router.callback_query(CallbackDataFactory.filter())
 async def callback_query(callback: CallbackQuery, callback_data: CallbackDataFactory):
@@ -33,3 +32,4 @@ async def callback_query(callback: CallbackQuery, callback_data: CallbackDataFac
              f'Область: {callback_data.region}\n'\
              f'Город: {callback_data.city}'
     )
+    await callback.answer()

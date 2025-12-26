@@ -5,11 +5,19 @@ import logging
 logger = logging.getLogger(__name__)
 
 class TgBot(BaseModel):
-    token : str
-    admins_id : list[int]
+    token: str
+    admins_id: list[int]   
+
+class DataBase(BaseModel):
+    user: str
+    password: str
+    localhost: str
+    db_name: str
 
 class Config(BaseModel):
-    bot : TgBot
+    bot: TgBot
+    db_config: DataBase  
+
 
 def load_config(path: str | None = None) -> Config:
     try:
@@ -19,7 +27,9 @@ def load_config(path: str | None = None) -> Config:
         return Config(
         bot=TgBot(
             token=env.str("BOT_TOKEN"),
-            admins_id=env.list("ADMINS_ID", subcast=int)))
+            admins_id=env.list("ADMINS_ID", subcast=int)), 
+        db_config=DataBase(user = env.str("DB_USER"), password = env.str("DB_PASSWORD"), localhost = env.str("DB_HOST"), db_name = env.str("DB_NAME"))
+        )
     
     except FileNotFoundError:
         logger.critical("Конфигурационный файл .env не найден. Проверьте его наличие или переменные окружения.🛑")
